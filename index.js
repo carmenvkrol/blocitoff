@@ -7,7 +7,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
 
-mongoose.connect('mongodb://localhost/tasksdb');
+mongoose.connect('mongodb://localhost/blocitoff');
 
 if(process.env.NODE_ENV === 'production'){
   app.get('/*', express.static(__dirname + '/dist'));
@@ -21,7 +21,6 @@ else{
 
 }
 
-
 var userSchema = mongoose.Schema({
       username: String,
       email: String,
@@ -30,17 +29,18 @@ var userSchema = mongoose.Schema({
 
 var User = mongoose.model('User', userSchema);
 
-var newUser = new User();
-newUser.username = "carmen";
-newUser.password = "foo";
 
-newUser.save(function(err) {
-  if (err) {
-    console.log(err);
-  } else {
-    return (newUser);
-  }
-});
+//var newUser = new User();
+//newUser.username = "carmen";
+//newUser.password = "foo";
+
+//newUser.save(function(err) {
+  //if (err) {
+    //console.log(err);
+  //} else {
+    //return (newUser);
+  //}
+//});
 
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
@@ -62,12 +62,12 @@ passport.deserializeUser(function(id, done) {
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
-    User.findOne({ username: 'carmen' }, function (err, user) {
+    User.findOne({ username: username }, function (err, user) {
       if (err) { return done(err); }
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
       }
-      if ( password != 'foo') {
+      if ( password != password ) {
         return done(null, false, { message: 'Incorrect password.' });
       }
       return done(null, user);
@@ -105,6 +105,54 @@ app.get('/new', function(req, res) {
     }
   });
 });
+
+index = function (req, res) {
+  return User.find(function (err, users){
+    if (!err) {
+      res.jsonp(users);
+    } else {
+      console.log(err);
+    }
+  });
+}
+
+findById = function (req, res) {
+  return User.findById(req.params.id, function (err, user){
+    if (!err) {
+      res.jsonp(user);
+    } else {
+      console.log(err);
+    }
+  });
+}
+
+addUser = function (req, res) {
+  var user;
+
+  user = new User ({
+
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password
+
+  });
+
+  user.save(function (err) {
+
+    if (!err) {
+      console.log('created');
+    } else {
+      console.log(err);
+    }
+
+  });
+  return res.send(user);
+}
+
+app.get('/', index);
+app.get('/users', index);
+app.get('/users/:id', findById);
+app.post('/users', addUser);
 
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/new',
