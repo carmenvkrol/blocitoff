@@ -23,8 +23,16 @@ angular
         templateUrl: 'views/main.html',
         controller: 'RegCtrl'
       })
+      /*.when('/tasks', {
+        templateUrl: 'views/tasks.html',
+        controller: 'ToDoCtrl'
+      })*/
+      .when('/tasks', {
+        templateUrl: 'views/tasks.html',
+        controller: 'TasksCtrl'
+      })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/fail'
       });
   });
 
@@ -35,7 +43,7 @@ angular
     '$scope',
     '$http',
     '$location',
-    function($scope, $http, $location) {
+    function($scope, $http, $location) { 
     $scope.form = {};
 
     $scope.addUser = function () {
@@ -43,14 +51,56 @@ angular
           success(function(data){
             $location.path('/');
           });
-    }
+    };
 
-    $http({method: 'jsonp', url:'http://host:1337/users?callback=JSON_CALLBACK'})
-      .success(function(data, status, headers, config) {
-        $scope.user = data;
-      })
-      .error(function(data, status, headers, config){
-
-      });
+    
 
 }]);
+
+angular
+  .module('bloc1App')
+  .controller('TaskTableCtrl', [
+        '$http',
+        '$scope',
+        function($http, $scope) {
+        $http.jsonp('http://localhost:1337/todos?callback=JSON_CALLBACK')
+          .success(function(data) {
+            console.log('grabbing todos');
+            $scope.todos = data;
+          })
+          .error(function(data){
+            console.log('not getting todos');
+          });
+
+    }]);
+
+
+/*angular
+  .module('bloc1App')
+  .controller('TasksCtrl', [
+      '$scope',
+      '$http',
+      '$location',
+      function($scope, $http, $location) {
+        $scope.form = {};
+
+        $scope.addToDo = function () {
+          $http.post('/tasks', $scope.form).
+            success(function(data){
+              $location.path('/');
+          });
+        }
+
+        $http({method: 'jsonp', url:'http://host:1337/todos?callback=JSON_CALLBACK'})
+          .success(function(data, status, headers, config) {
+            $scope.todo = data;
+          })
+          .error(function(data, status, headers, config){
+
+          });
+
+
+//need functionality so user can delete task when completed
+
+
+}]);*/

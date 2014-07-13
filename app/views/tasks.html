@@ -1,1 +1,23 @@
-<p>This is the tasks view.</p>
+<div class="container col-md-12">
+  <div class="row">
+    <form>
+      <input ng-model="form.task" name="task" placeholder="Task" required />
+      <button ng-click="addToDo()" class="btn btn-default" type="submit">Add to the List!</button>
+    </form>
+  </div>
+
+  <div class="row" ng-controller="TaskTableCtrl">
+    <table>
+      <tbody>
+        <tr ng-repeat="todo in todos">
+            <td>
+              {{ todo.task }}
+            </td>
+            <td>
+              {{ todo.date | date : 'longDate'}}
+            </td>
+        </tr> 
+      </tbody>
+    </table>
+  </div>
+</div>
