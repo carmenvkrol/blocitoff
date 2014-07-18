@@ -1,20 +1,38 @@
+<div class="header">
+  <div class="logo">
+    <h3 class="text-muted">Blocitoff</h3>
+  </div>
+  <div class="signin">
+    <form action="/logout" method="post">
+      <button class="btn btn-default" type="submit" value="Log In">Sign Out</button>
+    <form>
+  </div>
+</div>
+
 <div class="container col-md-12">
   <div class="row">
     <form>
       <input ng-model="form.task" name="task" placeholder="Task" required />
-      <button ng-click="addToDo()" class="btn btn-default" type="submit">Add to the List!</button>
+      <button ng-click="addToDo()" class="btn btn-default" type="submit">Add to List!</button>
     </form>
   </div>
 
-  <div class="row" ng-controller="TaskTableCtrl">
+  <ul class="list-group">
+    <li class="list-group-item"></li>
+  </ul>
+
+  <div class="row">
     <table>
       <tbody>
-        <tr ng-repeat="todo in todos">
+        <tr ng-repeat="todo in todos | filter:{'status':'current'}">
             <td>
               {{ todo.task }}
             </td>
             <td>
-              {{ todo.date | date : 'longDate'}}
+              {{ todo.date | date : 'longDate' }}
+            </td>
+            <td ng-click="deleteToDo()">
+                Done!
             </td>
         </tr> 
       </tbody>

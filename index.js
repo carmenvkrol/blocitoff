@@ -20,18 +20,26 @@ var userSchema = mongoose.Schema({
       username: String,
       email: String,
       password: String,
-      todos: [taskSchema]
+      todos: [{type: mongoose.Schema.Types.ObjectId, ref: 'Task'}]
 });
 
 var User = mongoose.model('User', userSchema);
 
 //ToDo Variable
 var taskSchema = new mongoose.Schema({ 
+        userid: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
         task: String,
+        status: String,
         date: {type: Date, default: Date.now}
 });
 
 var Task = mongoose.model('Task', taskSchema);
+
+//Task.find({}).populate('_userid').exec();
+//User.find({}).populate('todos').exec();
+
+//Task.find({}).remove().exec();
+//User.find({}).remove().exec();
 
 
 
@@ -77,7 +85,7 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(id, done) {
   User.findById(id, function (err, user) {
     return done(err, user);
-  });
+  })
 });
 
 
@@ -143,6 +151,8 @@ addUser = function (req, res) {
 }
 
 //ToDo Functions
+
+
 toDoIndex = function (req, res) {
   console.log("hello");
   return Task.find(function (err, todos){
@@ -170,42 +180,54 @@ addToDo = function (req, res) {
 
   todo = new Task ({
 
+      userid:req.body.userid,
       task:req.body.task,
-      date:req.body.date
+      status: "current"
 
   });
 
-  todo.save(function (err) {
+  todo.save(function (err, todo) {
 
     if (!err) {
+    
+      res.json(todo);//not sure if will send to correct user document
+      
       console.log('created');
+
     } else {
       console.log(err);
     }
 
   });
-  return res.send(todo);//not sure if will send to correct user document
+}
+
+deleteToDo = function (req, res) {
+  return Task.findById( req.params.id, function(err, todo){
+    return todo.remove(function(err){
+      if (!err) {
+        console.log('removed');
+        return res.send('');
+      } else {
+        console.log(err);
+      }
+    });
+  });
 }
 
 
 /*** ROUTES ***/
 
-//Sign In Routes
+//Sign In/Sign Out Routes
 
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/#/tasks',
                                    failureRedirect: '/',
                                  })
 );
-
-/*
-app.post('/login', function(req, res) {
-  console.log("here now");
-  passport.authenticate('local', function (err, user) {
-    console.log("got this far with error: " + err);
-    res.send("done");
-  })(req,res);
-});*/
+app.post('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
 
 //Registration Form Routes
 //app.get('/', index);
@@ -218,12 +240,44 @@ app.post('/users', addUser);
 
 //not sure if this is going to populate tasks only for that user
 app.get('/tasks', toDoIndex);
-app.get('/todos', toDoIndex);
+//app.get('/todos', toDoIndex);
+app.get('/todos', function (req, res) {
+  console.log("hello");
+  return Task.find(function (err, todos){
+
+    setInterval(function() {
+      var seconds = Date.now();
+      var week = 86400000;
+
+      console.log(todos);
+
+      for (i=0; i < todos.length; i++) {
+        var date = new Date(todos[i].date);
+        var datems = date.getTime();
+        if ((datems + week) < seconds) { 
+          todos[i].status = "archive"
+          todos[i].save(function(err) {
+            if (err) { return next(err); }
+          });
+        }
+      }
+    }, 3600000); //3600000 = 1 hour
+
+    if (!err) {
+      res.jsonp(todos);
+    } else {
+      console.log(err);
+    }
+  });
+  time;
+});
+
 app.get('/todos/:id', toDoFindById);
 
 //***app.put for updating data that is more than 7 days old***
 
 app.post('/todos', addToDo);
+app.delete('/todos/:id', deleteToDo);
 
 //app.get('/find', function (req, res) {
   //return ToDo.find(function(err, tasks){

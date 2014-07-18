@@ -40,7 +40,8 @@
     "karma": "~0.12.16",
     "karma-jasmine": "~0.1.5",
     "grunt-contrib-less": "~0.11.3",
-    "mongoose": "~3.8.12"
+    "mongoose": "~3.8.12",
+    "grunt-recess": "~0.7.0"
   },
   "engines": {
     "node": ">=0.10.0"

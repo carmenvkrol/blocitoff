@@ -1,3 +1,92 @@
-html {
-  background: ;
+/*INDEX.HTML*/
+
+/* Space out content a bit */
+body {
+  /*background: linear-gradient(#FFF 80%, #d9edf7);*/
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.header {
+  border-bottom: 1px solid #e5e5e5;
+
+  .logo {
+    display: inline-block;
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 0;
+      line-height: 40px;
+      padding-bottom: 19px;
+    }
+  }
+
+  .signin {
+    display: inline-block;
+    float: right;
+    padding-top: 6px;
+
+    form {
+      input {
+        height: 30px;
+      }
+      .btn-default {
+        background-color: #d9edf7;
+      }
+    }
+  }
+  
+
+}
+
+.footer {
+  padding-top: 19px;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .header,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+}
+
+/* MAIN.HTML */
+
+#description {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#signup {
+  padding-left: 0;
+  padding-right: 0;
+
+  form {
+    .inputblock {
+      display: block;
+    }
+  }
 }

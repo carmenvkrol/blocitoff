@@ -1,25 +1,58 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name bloc1App.controller:TasksCtrl
- * @description
- * # TasksCtrl
- * Controller of the bloc1App
- */
-angular.module('bloc1App')
+angular
+  .module('bloc1App')
   .controller('TasksCtrl', [
-      '$scope',
-      '$http',
-      '$location',
-      function($scope, $http, $location) {
-        $scope.form = {};
+        '$http',
+        '$scope',
+        '$location',
+        '$timeout',
 
-        $scope.addToDo = function () {
-          $http.post('/todos', $scope.form).
-            success(function(data){
-              $location.path('/tasks');
-          });
-        }
+        function($http, $scope, $location, $timeout) {
 
-  }]);
+          $http
+            .jsonp('/todos?callback=JSON_CALLBACK')
+            .success(function(data) {
+              
+              $timeout(function(){
+              
+                $scope.todos = data;
+
+              });
+            
+            })
+            .error(function(){
+            });
+
+          $scope.todos = [];
+
+          $scope.form = {};
+
+          $scope.addToDo = function () {
+            console.log('add todo function');
+            $http.post('/todos', $scope.form).
+              success(function(data){
+
+                $timeout(function(){
+
+                  $scope.todos.push(data);
+
+                  console.log($scope.data);
+
+                  $scope.$digest();
+
+                });
+
+            });
+          };
+
+          /*$scope.deleteToDo = function() {
+            $http.delete('/todos/:id', $scope.todo)
+              .success(function(data) {
+                $location.path('/tasks');
+              })
+              .error(function(data){
+              });
+          }; */
+    
+    }]);

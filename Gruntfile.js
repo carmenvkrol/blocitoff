@@ -27,6 +27,36 @@ module.exports = function (grunt) {
     // Project settings
     yeoman: appConfig,
 
+    // Less settings
+    less: {
+      development: {
+        options: {
+          compress: true,
+          yuicompress: true,
+          optimization: 2
+        },
+        files: {
+          //target.css file: source.less file
+          'app/styles/main.css': 'app/styles/main.less'
+        }
+      }
+    },
+
+    recess: {
+      options: {
+            compile: true
+        },
+        dist: {
+            files: [{
+                expand: true,
+                cwd: '<%= yeoman.app %>/styles',
+                src: '{,*/}*.less',
+                dest: '.tmp/styles/',
+                ext: '.css'
+           }]
+        }
+    },
+
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       bower: {
@@ -37,7 +67,7 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
         tasks: ['newer:jshint:all'],
         options: {
-          livereload: '<%= connect.options.livereload %>'
+          livereload: true //'<%= connect.options.livereload %>'
         }
       },
       jsTest: {
@@ -50,6 +80,10 @@ module.exports = function (grunt) {
       },
       gruntfile: {
         files: ['Gruntfile.js']
+      },
+      recess: {
+        files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
+        tasks: ['recess:dist']
       },
       livereload: {
         options: {
@@ -95,6 +129,8 @@ module.exports = function (grunt) {
       }
     },
 
+
+
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
       options: {
@@ -114,6 +150,10 @@ module.exports = function (grunt) {
         src: ['test/spec/{,*/}*.js']
       }
     },
+
+
+
+    
 
     // Empties folders to start fresh
     clean: {
@@ -196,19 +236,25 @@ module.exports = function (grunt) {
       }
     },
 
+    cssmin: {
+      options: {
+        root: '<%= yeoman.app %>'
+      }
+    },
+
     // The following *-min tasks will produce minified files in the dist folder
     // By default, your `index.html`'s <!-- Usemin block --> will take care of
     // minification. These next options are pre-configured if you do not wish
     // to use the Usemin blocks.
-    // cssmin: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/styles/main.css': [
-    //         '.tmp/styles/{,*/}*.css'
-    //       ]
-    //     }
-    //   }
-    // },
+    //cssmin: {
+      //dist: {
+        //files: {
+           //'<%= yeoman.dist %>/styles/main.css': [
+            //'.tmp/styles/{,*/}*.css'
+           //]
+         //}
+       //}
+     //},
     // uglify: {
     //   dist: {
     //     files: {
@@ -343,6 +389,8 @@ module.exports = function (grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
