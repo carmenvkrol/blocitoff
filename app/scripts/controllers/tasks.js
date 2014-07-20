@@ -46,13 +46,16 @@ angular
             });
           };
 
-          /*$scope.deleteToDo = function() {
-            $http.delete('/todos/:id', $scope.todo)
-              .success(function(data) {
-                $location.path('/tasks');
+          $scope.archiveToDo = function(todo) {
+            console.log('archive todo', todo);
+           
+            $http.put('/todos', todo)
+              .success(function(){
+                todo.status = 'archive';
               })
               .error(function(data){
+                console.log('error> ', data);
               });
-          }; */
+          };
     
     }]);

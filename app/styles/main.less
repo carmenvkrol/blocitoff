@@ -1,3 +1,5 @@
+@button: #C5EFF7;
+
 /*INDEX.HTML*/
 
 /* Space out content a bit */
@@ -5,38 +7,7 @@ body {
   /*background: linear-gradient(#FFF 80%, #d9edf7);*/
   padding-top: 20px;
   padding-bottom: 20px;
-}
-
-.header {
-  border-bottom: 1px solid #e5e5e5;
-
-  .logo {
-    display: inline-block;
-
-    h3 {
-      margin-top: 0;
-      margin-bottom: 0;
-      line-height: 40px;
-      padding-bottom: 19px;
-    }
-  }
-
-  .signin {
-    display: inline-block;
-    float: right;
-    padding-top: 6px;
-
-    form {
-      input {
-        height: 30px;
-      }
-      .btn-default {
-        background-color: #d9edf7;
-      }
-    }
-  }
-  
-
+  min-height: 1000px;
 }
 
 .footer {
@@ -44,7 +15,7 @@ body {
   padding-left: 15px;
   padding-right: 15px;
   color: #777;
-  border-top: 1px solid #e5e5e5;
+  /*border-top: 1px solid #e5e5e5;*/
 }
 
 
@@ -75,6 +46,36 @@ body {
 
 /* MAIN.HTML */
 
+.header {
+  border-bottom: 1px solid #e5e5e5;
+
+  .logo {
+    display: inline-block;
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 0;
+      line-height: 40px;
+      padding-bottom: 19px;
+    }
+  }
+
+  .signin {
+    display: inline-block;
+    float: right;
+    padding-top: 6px;
+
+    form {
+      input {
+        height: 30px;
+      }
+      .btn-default {
+        background-color: @button;
+      }
+    }
+  }
+}
+
 #description {
   padding-left: 0;
   padding-right: 0;
@@ -89,4 +90,26 @@ body {
       display: block;
     }
   }
+}
+
+
+/* TASKS.HTML */
+
+.addtask {
+  padding-bottom: 30px;
+}
+
+.addtaskinput {  
+  height: 36px;
+  width: 350px;
+}
+
+.addtaskbutton {
+  margin-left: 10px;
+  background-color: @button;
+}
+
+.glyphicon-ok:hover {
+  cursor: pointer;
+  color: #81CFE0;
 }

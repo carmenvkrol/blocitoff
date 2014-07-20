@@ -1,12 +1,14 @@
 /*** DEPENDENCIES ***/
 var express = require('express');
 var session = require('express-session');
+var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var app = express();
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
+var LocalStrategy = require('passport-local').Strategy;
+var RememberMeStrategy = require('passport-remember-me').Strategy;
 
 
 /*** DB ***/
@@ -67,12 +69,14 @@ app.get('/#/*', function(req, res){
 
 
 /***CONFIGURATIONS***/
+app.use(cookieParser());
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
-app.use(session({ secret: 'foo'}));
+app.use(session({ secret: "foo"}));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(passport.authenticate('remember-me'));
 
 
 /***FUNCTIONS***/
@@ -94,20 +98,39 @@ passport.use(new LocalStrategy(
     User.findOne({ username: username }, function (err, user) {
       if (err) { return done(err); }
       if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
+        //res.send(401);
+        return done(null, false);
       }
       if ( password != password ) {
-        return done(null, false, { message: 'Incorrect password.' });
+        //res.send(401);
+        return done(null, false);
       }
       return done(null, user);
     });
   }
 )); 
 
+passport.use(new RememberMeStrategy(
+  function(token, done) {
+    Token.consume(token, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      return done(null, user);
+    });
+  },
+  function(user, done) {
+    var token = utils.generateToken(64);
+    Token.save(token, { userId: user.id }, function(err) {
+      if (err) { return done(err); }
+      return done(null, token);
+    });
+  }
+));
+
+
 //Registration Form Functions
 
 index = function (req, res) {
-  console.log('index');
   return User.find(function (err, users){
     if (!err) {
       res.jsonp(users);
@@ -154,7 +177,6 @@ addUser = function (req, res) {
 
 
 toDoIndex = function (req, res) {
-  console.log("hello");
   return Task.find(function (err, todos){
     if (!err) {
       res.jsonp(todos);
@@ -190,7 +212,7 @@ addToDo = function (req, res) {
 
     if (!err) {
     
-      res.json(todo);//not sure if will send to correct user document
+      res.jsonp(todo);
       
       console.log('created');
 
@@ -201,16 +223,26 @@ addToDo = function (req, res) {
   });
 }
 
-deleteToDo = function (req, res) {
-  return Task.findById( req.params.id, function(err, todo){
-    return todo.remove(function(err){
+archiveToDo = function (req, res) {
+  return Task.findById(req.body._id, function(err, todo){
+      //todo.status = 'archive';
+      if(err){
+        return req.send(err);
+      }
+
+      todo.status = 'archive';
+
+      console.log(todo);
+
+      todo.save(function(err) {
+        if (err) { return next(err); }
+      });
       if (!err) {
-        console.log('removed');
-        return res.send('');
+        console.log('archived');
+        res.jsonp(todo);
       } else {
         console.log(err);
       }
-    });
   });
 }
 
@@ -224,7 +256,26 @@ app.post('/login',
                                    failureRedirect: '/',
                                  })
 );
+
+/*app.post('/login', 
+  passport.authenticate('local', { failureRedirect: '/', failureFlash: true }),
+  function(req, res, next) {
+    // issue a remember me cookie if the option was checked
+    if (!req.body.remember_me) { return next(); }
+
+    var token = utils.generateToken(64);
+    Token.save(token, { userId: req.user.id }, function(err) {
+      if (err) { return done(err); }
+      res.cookie('remember_me', token, { path: '/#/tasks', httpOnly: true, maxAge: 604800000 }); // 7 days
+      return next();
+    });
+  },
+  function(req, res) {
+    res.redirect('/#/tasks');
+  });*/
+
 app.post('/logout', function(req, res){
+  //res.clearCookie('remember_me');
   req.logout();
   res.redirect('/');
 });
@@ -242,42 +293,56 @@ app.post('/users', addUser);
 app.get('/tasks', toDoIndex);
 //app.get('/todos', toDoIndex);
 app.get('/todos', function (req, res) {
+
   console.log("hello");
-  return Task.find(function (err, todos){
 
-    setInterval(function() {
-      var seconds = Date.now();
-      var week = 86400000;
+  Task.find(function (err, todos){
 
-      console.log(todos);
+    /*var response = [];
 
-      for (i=0; i < todos.length; i++) {
-        var date = new Date(todos[i].date);
-        var datems = date.getTime();
-        if ((datems + week) < seconds) { 
-          todos[i].status = "archive"
-          todos[i].save(function(err) {
-            if (err) { return next(err); }
-          });
-        }
+    var i;
+
+    for(i in todos){
+      
+      if(todos[i].status !== 'archive'){
+
+        response.push(todo[i]);
+
       }
-    }, 3600000); //3600000 = 1 hour
+    
+    }*/
 
     if (!err) {
       res.jsonp(todos);
     } else {
       console.log(err);
     }
+
   });
-  time;
+
 });
 
+/*setInterval(function() {
+  var seconds = Date.now();
+  var week = 86400000;
+
+  console.log(todos);
+
+  for (i=0; i < todos.length; i++) {
+    var date = new Date(todos[i].date);
+    var datems = date.getTime();
+    if ((datems + week) < seconds) { 
+      todos[i].status = "archive"
+      todos[i].save(function(err) {
+        if (err) { return next(err); }
+      });
+    }
+  }
+}, 3600000);*/
+
 app.get('/todos/:id', toDoFindById);
-
-//***app.put for updating data that is more than 7 days old***
-
 app.post('/todos', addToDo);
-app.delete('/todos/:id', deleteToDo);
+app.put('/todos', archiveToDo);
 
 //app.get('/find', function (req, res) {
   //return ToDo.find(function(err, tasks){
