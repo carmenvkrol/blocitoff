@@ -1,6 +1,6 @@
 <div class="header">
         <div class="logo">
-          <h3 class="text-muted">Blocitoff</h3>
+          <h3>Blocitoff</h3>
         </div>
         <div class="signin">
           <form action="/login" method="post">
@@ -16,14 +16,10 @@
 
 
 <div class="container row">
-  <div id="description" class="col-md-5 panel panel-success">
-    <div class="panel-heading">
-      Self-Destructing Tasks!
+    <div id="description" class="col-md-5">
+    <h3>Self-Destructing Tasks</h3>
+    <p>With Blocitoff, it's a race to get those pesky tasks done!  Create a free account and then type what you need to get done.  If you don't finish them by 7 days, they will be destroyed.</p>
     </div>
-    <div class="panel-body">
-      With Blocitoff, it's a race to get those pesky tasks done!  Create a free account and then type what you need to get done.  If you don't finish them by 7 days, they will be destroyed.
-    </div>
-  </div>
 
   <div id="signup" class="col-md-6 col-md-offset-1 panel panel-info">
     <div class="panel-heading">
@@ -31,9 +27,18 @@
     </div>
     <div class="panel-body">
       <form>
-          <div class="inputblock">Username: <input ng-model="form.username" name="username" required /></div>
-          <div class="inputblock">Email: <input ng-model="form.email" name="email" required/></div>
-         <div class="inputblock"></a>Password: <input ng-model="form.password" name="password" required /></div>
+          <div class="inputblock">
+            <label>Username:</label> 
+            <input ng-model="form.username" name="username" required />
+          </div>
+          <div class="inputblock">
+            <label>Email:</label> 
+            <input ng-model="form.email" name="email" required/>
+          </div>
+          <div class="inputblock">
+            <label>Password:</label> 
+            <input ng-model="form.password" name="password" required />
+          </div>
         <button ng-click="addUser()" class="btn btn-default" type="submit">Sign Up!</button>
       </form>
     </div>

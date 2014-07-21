@@ -18,4 +18,7 @@ angular
           $location.path('/');
         });
     };
+
+    $scope.noAccount = function () {
+    };
 }]);

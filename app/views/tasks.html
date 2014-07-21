@@ -20,9 +20,13 @@
 
   <div class="row list-group">
     <div class="list-group-item" ng-repeat="todo in todos | filter:{'status':'current'}">
-        <h4>{{ todo.task }}</h4>
-        <p class="text-muted">{{ todo.date | date : 'longDate' }}</p>
-        <span ng-click="archiveToDo(todo)" class="glyphicon glyphicon-ok"></span>
+        <div class="taskcontainer">
+          <h4>{{ todo.task }}</h4>
+          <p class="text-muted">{{ todo.date | date : 'longDate' }}</p>
+        </div>
+        <div class="taskcontainer">
+          <span ng-click="archiveToDo(todo)" class="glyphicon glyphicon-ok"></span>
+        </div>
     </div>
   </div>
 </div>

@@ -1,4 +1,6 @@
 @button: #C5EFF7;
+@hover: #ddd;
+@taskblue: #E4F1FE;
 
 /*INDEX.HTML*/
 
@@ -72,6 +74,9 @@ body {
       .btn-default {
         background-color: @button;
       }
+      .btn-default:hover {
+        background-color: @hover;
+      }
     }
   }
 }
@@ -79,16 +84,54 @@ body {
 #description {
   padding-left: 0;
   padding-right: 0;
+  h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #00accd;
+  }
+  p {
+    font-size: 18px;
+    color: #656565;
+  }
 }
 
 #signup {
   padding-left: 0;
   padding-right: 0;
-
-  form {
-    .inputblock {
-      display: block;
+  
+  .inputblock {
+    display: block;
+    margin-bottom: 10px;
+    height: 30px;
+    
+    label {
+      display: inline-block;
+      padding-top: 3px;
+      float: left;
+      clear: left;
+      width: 110px;
+      text-align: right;
     }
+    
+    input {
+      display: inline-block;
+      float: right;
+      height: 30px;
+      width: 200px;
+    }
+  }
+  
+  button {
+    float: right;
+    background-color: @button;
+  }
+  
+  button:hover {
+    background-color: @hover;
+  }
+  
+  .panel-heading {
+    background-color: @button;
   }
 }
 
@@ -102,11 +145,34 @@ body {
 .addtaskinput {  
   height: 36px;
   width: 350px;
+  border-radius: 5px;
+  border: 1px solid @hover;
+  background-color: #f0f6f7;
 }
 
 .addtaskbutton {
   margin-left: 10px;
   background-color: @button;
+}
+
+.list-group-item:nth-child(odd){
+  background-color: @taskblue;
+}
+
+.taskcontainer {
+  display: inline-block;
+  p {
+    font-size: 12px;
+  }
+}
+
+.taskcontainer:last-child{
+  padding-top: 10px;
+  float: right;
+}
+
+.glyphicon-ok {
+  font-size: 32px;
 }
 
 .glyphicon-ok:hover {

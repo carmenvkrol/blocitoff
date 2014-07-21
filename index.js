@@ -29,7 +29,7 @@ var User = mongoose.model('User', userSchema);
 
 //ToDo Variable
 var taskSchema = new mongoose.Schema({ 
-        userid: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+        userid: String,
         task: String,
         status: String,
         date: {type: Date, default: Date.now}
@@ -98,11 +98,9 @@ passport.use(new LocalStrategy(
     User.findOne({ username: username }, function (err, user) {
       if (err) { return done(err); }
       if (!user) {
-        //res.send(401);
         return done(null, false);
       }
       if ( password != password ) {
-        //res.send(401);
         return done(null, false);
       }
       return done(null, user);
@@ -199,10 +197,13 @@ toDoFindById = function (req, res) {
 
 addToDo = function (req, res) {
   var todo;
+  if (!req.user) {
+    console.log('user not logged in');
+  }
 
   todo = new Task ({
 
-      userid:req.body.userid,
+      userid:req.user.id,
       task:req.body.task,
       status: "current"
 
@@ -257,6 +258,20 @@ app.post('/login',
                                  })
 );
 
+app.get('/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { return next(err); }
+    if (!user) { 
+      res.send(401);
+      return res.redirect('/'); 
+    }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.redirect('/users/' + user.username);
+    });
+  })(req, res, next);
+});
+
 /*app.post('/login', 
   passport.authenticate('local', { failureRedirect: '/', failureFlash: true }),
   function(req, res, next) {
@@ -293,10 +308,13 @@ app.post('/users', addUser);
 app.get('/tasks', toDoIndex);
 //app.get('/todos', toDoIndex);
 app.get('/todos', function (req, res) {
-
+  if (!req.user) {
+    console.log('user is not logged in');
+    res.jsonp([]);
+  }
   console.log("hello");
 
-  Task.find(function (err, todos){
+  Task.find({'userid': req.user.id}, function (err, todos){
 
     /*var response = [];
 
