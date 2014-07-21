@@ -173,6 +173,26 @@ addUser = function (req, res) {
 
 //ToDo Functions
 
+Task.find({}, function (err, todos){
+  setInterval(function() {
+  var seconds = Date.now();
+  var week = 86400000; //86400000 = 1 week
+
+  console.log(todos);
+
+  for (i=0; i < todos.length; i++) {
+    var date = new Date(todos[i].date);
+    var datems = date.getTime();
+    if ((datems + week) < seconds) { 
+      todos[i].status = "archive"
+      todos[i].save(function(err) {
+        if (err) { return next(err); }
+      });
+    }
+  }
+}, 3600000);
+}); 
+
 
 toDoIndex = function (req, res) {
   return Task.find(function (err, todos){
@@ -337,7 +357,7 @@ app.get('/todos', function (req, res) {
     }*/
 
     if (!err) {
-      res.json(todos);//jsonp
+      res.json(todos);
     } else {
       console.log(err);
     }
@@ -346,23 +366,6 @@ app.get('/todos', function (req, res) {
 
 });
 
-/*setInterval(function() {
-  var seconds = Date.now();
-  var week = 86400000;
-
-  console.log(todos);
-
-  for (i=0; i < todos.length; i++) {
-    var date = new Date(todos[i].date);
-    var datems = date.getTime();
-    if ((datems + week) < seconds) { 
-      todos[i].status = "archive"
-      todos[i].save(function(err) {
-        if (err) { return next(err); }
-      });
-    }
-  }
-}, 3600000);*/
 
 app.get('/todos/:id', toDoFindById);
 app.post('/todos', addToDo);
