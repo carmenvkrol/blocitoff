@@ -131,7 +131,7 @@ passport.use(new RememberMeStrategy(
 index = function (req, res) {
   return User.find(function (err, users){
     if (!err) {
-      res.jsonp(users);
+      res.json(users);//jsonp
     } else {
       console.log(err);
     }
@@ -141,7 +141,7 @@ index = function (req, res) {
 findById = function (req, res) {
   return User.findById(req.params.id, function (err, user){
     if (!err) {
-      res.jsonp(user);
+      res.json(user);//jsonp
     } else {
       console.log(err);
     }
@@ -177,7 +177,7 @@ addUser = function (req, res) {
 toDoIndex = function (req, res) {
   return Task.find(function (err, todos){
     if (!err) {
-      res.jsonp(todos);
+      res.json(todos); //jsonp
     } else {
       console.log(err);
     }
@@ -187,7 +187,7 @@ toDoIndex = function (req, res) {
 toDoFindById = function (req, res) {
   return Task.findById(req.params.id, function (err, todos){
     if (!err) {
-      res.jsonp(todos);
+      res.json(todos); //jsonp
     } else {
       console.log(err);
     }
@@ -213,7 +213,7 @@ addToDo = function (req, res) {
 
     if (!err) {
     
-      res.jsonp(todo);
+      res.json(todo); //jsonp
       
       console.log('created');
 
@@ -240,7 +240,7 @@ archiveToDo = function (req, res) {
       });
       if (!err) {
         console.log('archived');
-        res.jsonp(todo);
+        res.json(todo); //jsonp
       } else {
         console.log(err);
       }
@@ -298,6 +298,12 @@ app.post('/logout', function(req, res){
 //Registration Form Routes
 //app.get('/', index);
 app.get('/users', index);
+app.get('/userid', function(req, res) {
+  if (!req.user) {
+    console.log('user is not logged in');
+  }
+  res.json(req.user.username);//jsonp
+});
 app.get('/users/:id', findById);
 app.post('/users', addUser);
 
@@ -310,7 +316,7 @@ app.get('/tasks', toDoIndex);
 app.get('/todos', function (req, res) {
   if (!req.user) {
     console.log('user is not logged in');
-    res.jsonp([]);
+    res.json([]);//jsonp
   }
   console.log("hello");
 
@@ -331,7 +337,7 @@ app.get('/todos', function (req, res) {
     }*/
 
     if (!err) {
-      res.jsonp(todos);
+      res.json(todos);//jsonp
     } else {
       console.log(err);
     }

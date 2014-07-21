@@ -11,7 +11,21 @@ angular
         function($http, $scope, $location, $timeout) {
 
           $http
-            .jsonp('/todos?callback=JSON_CALLBACK')
+            .get('/userid')
+            .success(function(data){
+
+              $timeout(function(){
+                $scope.user = data;
+              });
+
+            })
+            .error(function(){
+            });
+
+          $scope.user = {};
+
+          $http
+            .get('/todos')
             .success(function(data) {
               
               $timeout(function(){
