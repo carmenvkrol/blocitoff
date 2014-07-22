@@ -19,6 +19,4 @@ angular
         });
     };
 
-    $scope.noAccount = function () {
-    };
 }]);

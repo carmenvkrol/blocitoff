@@ -175,7 +175,7 @@ addUser = function (req, res) {
 Task.find({}, function (err, todos){
   setInterval(function() {
   var seconds = Date.now();
-  var week = 86400000; //86400000 = 1 week
+  var week = 604800000; //604800000 = 1 week
 
   console.log(todos);
 
@@ -189,7 +189,7 @@ Task.find({}, function (err, todos){
       });
     }
   }
-}, 3600000);
+}, 3600000);//3600000 = 1 hour
 }); 
 
 

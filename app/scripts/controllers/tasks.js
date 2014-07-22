@@ -33,6 +33,13 @@ angular
               
                 $scope.todos = data;
 
+                for (var i=0; i < $scope.todos.length; i++) {
+                  var newdate = new Date($scope.todos[i].date);
+                  var datems = newdate.getTime();
+                  console.log(datems);
+                  $scope.todos[i].date = datems;
+                }
+
               });
             
             })
@@ -40,6 +47,9 @@ angular
             });
 
           $scope.todos = [];
+
+
+          //86400000 = 1 day
 
           $scope.form = {};
 
@@ -76,3 +86,33 @@ angular
           };
     
     }]);
+
+angular
+  .module('bloc1App')
+  .filter('daysleftFilter', function(){
+    return function(date) {
+      var seconds = Date.now();
+      var output;
+
+//MAKE INTO CASE STATEMENT
+      if ((seconds - date) < (86400000)) {
+        output = 7;
+      } else if ((seconds - date) < (2*86400000)) {
+        output = 6;
+      } else if ((seconds - date) < (3*86400000)) {
+        output = 5;
+      } else if ((seconds - date) < (4*86400000)) {
+        output = 4;
+      } else if ((seconds - date) < (5*86400000)) {
+        output = 3;
+      } else if ((seconds - date) < (6*86400000)) {
+        output = 2;
+      } else if ((seconds - date) < (7*86400000)) {
+        output = 1;
+      }
+
+
+      return output;
+    };
+
+  });
