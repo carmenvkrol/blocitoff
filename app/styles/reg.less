@@ -1,0 +1,92 @@
+/* REG.HTML */
+
+@button: #C5EFF7;
+@hover: #ddd;
+@taskblue: #E4F1FE;
+
+.header {
+  border-bottom: 1px solid #e5e5e5;
+
+  .logo {
+    display: inline-block;
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 0;
+      line-height: 40px;
+      padding-bottom: 19px;
+    }
+  }
+
+  .signin {
+    display: inline-block;
+    float: right;
+    padding-top: 6px;
+
+    form {
+      input {
+        height: 30px;
+      }
+      .btn-default {
+        background-color: @button;
+      }
+      .btn-default:hover {
+        background-color: @hover;
+      }
+    }
+  }
+}
+
+#description {
+  padding-left: 0;
+  padding-right: 0;
+  h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #00accd;
+  }
+  p {
+    font-size: 18px;
+    color: #656565;
+  }
+}
+
+#signup {
+  padding-left: 0;
+  padding-right: 0;
+  
+  .inputblock {
+    display: block;
+    margin-bottom: 10px;
+    height: 30px;
+    
+    label {
+      display: inline-block;
+      padding-top: 3px;
+      float: left;
+      clear: left;
+      width: 110px;
+      text-align: right;
+    }
+    
+    input {
+      display: inline-block;
+      float: right;
+      height: 30px;
+      width: 200px;
+    }
+  }
+  
+  button {
+    float: right;
+    background-color: @button;
+  }
+  
+  button:hover {
+    background-color: @hover;
+  }
+  
+  .panel-heading {
+    background-color: @button;
+  }
+}

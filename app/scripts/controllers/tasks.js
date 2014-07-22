@@ -15,6 +15,7 @@ angular
             .success(function(data){
 
               $timeout(function(){
+                data = data.substr(1, data.length - 2);
                 $scope.user = data;
               });
 
@@ -54,6 +55,8 @@ angular
                   console.log($scope.data);
 
                   $scope.$digest();
+
+                  $scope.form = {};
 
                 });
 

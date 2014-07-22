@@ -37,8 +37,7 @@ var taskSchema = new mongoose.Schema({
 
 var Task = mongoose.model('Task', taskSchema);
 
-//Task.find({}).populate('_userid').exec();
-//User.find({}).populate('todos').exec();
+
 
 //Task.find({}).remove().exec();
 //User.find({}).remove().exec();
@@ -316,7 +315,6 @@ app.post('/logout', function(req, res){
 });
 
 //Registration Form Routes
-//app.get('/', index);
 app.get('/users', index);
 app.get('/userid', function(req, res) {
   if (!req.user) {
@@ -330,9 +328,7 @@ app.post('/users', addUser);
 
 //ToDo routes
 
-//not sure if this is going to populate tasks only for that user
 app.get('/tasks', toDoIndex);
-//app.get('/todos', toDoIndex);
 app.get('/todos', function (req, res) {
   if (!req.user) {
     console.log('user is not logged in');
@@ -371,30 +367,6 @@ app.get('/todos/:id', toDoFindById);
 app.post('/todos', addToDo);
 app.put('/todos', archiveToDo);
 
-//app.get('/find', function (req, res) {
-  //return ToDo.find(function(err, tasks){
-    //if (err) {
-      //return console.error(err);
-    //}
-    //else {
-      //return console.log('Not logged in');
-    //}  
-  //});
-//});
-
-//app.get('/new', function(req, res) {
-  //var task = new ToDo ({
-    //text: 'Feed the cats'
-  //});
-  //task.save(function(err) {
-    //if (err) {
-      //return console.error(err);
-    //} 
-    //else {
-      //return res.send(task);
-    //}
-  //});
-//});
 
 
 /*** LOCAL SERVER ***/

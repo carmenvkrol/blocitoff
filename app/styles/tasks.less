@@ -1,0 +1,47 @@
+/* TASKS.HTML */
+
+@button: #C5EFF7;
+@hover: #ddd;
+@taskblue: #E4F1FE;
+
+.addtask {
+  padding-bottom: 30px;
+}
+
+.addtaskinput {  
+  height: 36px;
+  width: 350px;
+  border-radius: 5px;
+  border: 1px solid @hover;
+  background-color: #f0f6f7;
+}
+
+.addtaskbutton {
+  margin-left: 10px;
+  background-color: @button;
+}
+
+.list-group-item:nth-child(odd){
+  background-color: @taskblue;
+}
+
+.taskcontainer {
+  display: inline-block;
+  p {
+    font-size: 12px;
+  }
+}
+
+.taskcontainer:last-child{
+  padding-top: 10px;
+  float: right;
+}
+
+.glyphicon-ok {
+  font-size: 32px;
+}
+
+.glyphicon-ok:hover {
+  cursor: pointer;
+  color: #81CFE0;
+}
