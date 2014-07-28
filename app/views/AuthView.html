@@ -1,0 +1,64 @@
+<div class="header">
+        <div class="logo">
+          <h3>Blocitoff</h3>
+        </div>
+        <div class="login">
+          <form data-ng-submit="login(login.username, login.password)" name="login_form">
+            <div class="logininputblock">
+              <input data-ng-required="true" name="username" data-ng-model="login.username" type="text" placeholder="Username" />
+              <input data-ng-required="true" name="password" data-ng-model="login.password" type="password" placeholder="Password" />
+              <button data-ng-disabled="login_form.$invalid" class="btn btn-default" type="submit" value="Log In">Sign In</button>
+            </div>
+            <div class="login_error" ng-show="(login_form.username.$dirty && login_form.username.$invalid) || (login_form.password.$dirty && login_form.password.$invalid)"> Username and Password Required!
+            </div>
+          </form>
+        <div class="messagesList" app-messages></div>
+        <!--<div class="noaccount">
+          <p>We don't recognize this username and password.  Please register with the form below.</p>
+        </div>-->
+      </div>
+</div>
+
+
+<div class="container row">
+    <div id="description" class="col-md-5">
+    <h3>Self-Destructing Tasks</h3>
+    <p>With Blocitoff, it's a race to get those pesky tasks done!  Create a free account and then type what you need to finish.  If you don't complete them within 7 days, they will be destroyed. *evil laugh*</p>
+    </div>
+
+  <div id="register" class="col-md-6 col-md-offset-1 panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">Get Started!</h3>
+    </div>
+    <div class="panel-body">
+      <form data-ng-submit="register(register.username, register.email, register.password)" name="register_form">
+          <div class="formrow">
+            <label>Username:</label> 
+            <div class="inputblock">
+              <input data-ng-required="true" data-ng-model="register.username" type="text" name="username"/>
+              <div ng-show="register_form.username.$invalid && register_form.username.$dirty" class="register_error">Username required.</div>
+            </div>
+          </div>
+          <div class="formrow">
+            <label>Email:</label> 
+            <div class="inputblock">
+              <input data-ng-required="true" data-ng-model="register.email" type="email" name="email" required/>
+              <div ng-show="register_form.email.$invalid && register_form.email.$dirty" class="register_error">Valid email address required.</div>
+            </div>
+          </div>
+          <div class="formrow">
+            <label>Password:</label> 
+            <div class="inputblock">
+              <input data-ng-required="true" data-ng-model="register.password" type="password" name="password" required />
+              <div ng-show="register_form.password.$invalid && register_form.password.$dirty" class="register_error">Password required.</div>
+            </div>
+          </div>
+        <button data-ng-disabled="register_form.$invalid" ng-click="register_form.$setPristine()" class="btn btn-default" type="submit">Sign Up!</button>
+      </form>
+      <div class="register_message">
+        {{ message }}
+      </div>
+    </div>
+  </div>
+</div>
+

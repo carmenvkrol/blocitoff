@@ -7,8 +7,9 @@ angular
         '$scope',
         '$location',
         '$timeout',
+        'AuthenticationService',
 
-        function($http, $scope, $location, $timeout) {
+        function($http, $scope, $location, $timeout, AuthenticationService) {
 
           $http
             .get('/userid')
@@ -57,6 +58,8 @@ angular
             console.log('add todo function');
             $http.post('/todos', $scope.form).
               success(function(data){
+ 
+                console.log(data);
 
                 $timeout(function(){
 
@@ -64,7 +67,12 @@ angular
 
                   console.log($scope.data);
 
-                  $scope.$digest();
+                  for (var i=0; i < $scope.todos.length; i++) {
+                    var newdate = new Date($scope.todos[i].date);
+                    var datems = newdate.getTime();
+                    console.log(datems);
+                    $scope.todos[i].date = datems;
+                  }
 
                   $scope.form = {};
 
@@ -84,6 +92,20 @@ angular
                 console.log('error> ', data);
               });
           };
+
+          $scope.logout = function(){
+
+            AuthenticationService.logout().then(function(){
+ 
+              $location.url('/');
+
+            }, function(){
+
+              $location.url('/');
+
+            });
+
+          };
     
     }]);
 
@@ -94,7 +116,6 @@ angular
       var seconds = Date.now();
       var output;
 
-//MAKE INTO CASE STATEMENT
       if ((seconds - date) < (86400000)) {
         output = 7;
       } else if ((seconds - date) < (2*86400000)) {
@@ -110,7 +131,6 @@ angular
       } else if ((seconds - date) < (7*86400000)) {
         output = 1;
       }
-
 
       return output;
     };

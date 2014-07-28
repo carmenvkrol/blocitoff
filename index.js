@@ -271,22 +271,24 @@ archiveToDo = function (req, res) {
 
 //Sign In/Sign Out Routes
 
-app.post('/login',
+/*app.post('/login',
   passport.authenticate('local', { successRedirect: '/#/tasks',
                                    failureRedirect: '/',
                                  })
-);
+);*/
 
-app.get('/login', function(req, res, next) {
+
+app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) { return next(err); }
     if (!user) { 
-      res.send(401);
-      return res.redirect('/'); 
+      res.status(401).redirect('/');
+      console.log(401);
+      //return res.redirect('/'); 
     }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
-      return res.redirect('/users/' + user.username);
+      return res.redirect('/#/tasks');
     });
   })(req, res, next);
 });
@@ -311,7 +313,10 @@ app.get('/login', function(req, res, next) {
 app.post('/logout', function(req, res){
   //res.clearCookie('remember_me');
   req.logout();
-  res.redirect('/');
+  res.json({
+    success: true
+  });
+  //res.redirect('/');
 });
 
 //Registration Form Routes

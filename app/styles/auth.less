@@ -3,6 +3,7 @@
 @button: #C5EFF7;
 @hover: #ddd;
 @taskblue: #E4F1FE;
+@error: #E8190C;
 
 .header {
   border-bottom: 1px solid #e5e5e5;
@@ -18,18 +19,30 @@
     }
   }
 
-  .signin {
+  .login {
     display: inline-block;
     float: right;
     padding-top: 6px;
 
     form {
-      input {
-        height: 30px;
+      .logininputblock {
+        display: block;
+
+        input {
+          height: 30px;
+        }
       }
+      
+      .login_error {
+        display: block;
+        color: @error;
+        font-size: 14px;
+      }
+
       .btn-default {
         background-color: @button;
       }
+
       .btn-default:hover {
         background-color: @hover;
       }
@@ -51,14 +64,14 @@
   }
 }
 
-#signup {
+#register{
   padding-left: 0;
   padding-right: 0;
   
-  .inputblock {
+  .formrow {
     display: block;
     margin-bottom: 10px;
-    height: 30px;
+    height: 45px;
     
     label {
       display: inline-block;
@@ -70,11 +83,23 @@
     }
     
     input {
-      display: inline-block;
-      float: right;
       height: 30px;
       width: 200px;
+
     }
+
+    .inputblock {
+      display: inline-block;
+      float: right;
+      width: 200px;
+      height: 40px;
+    }
+
+    .register_error {
+      color: @error;
+      font-size: 14px;
+    }
+
   }
   
   button {
@@ -89,4 +114,12 @@
   .panel-heading {
     background-color: @button;
   }
+
+  .register_message {
+    clear: both;
+    padding-top: 12px;
+    text-align: right;
+    color: @error;
+  }
 }
+

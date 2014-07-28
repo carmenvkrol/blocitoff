@@ -3,18 +3,18 @@
     <h3 class="navbar-text">Blocitoff</h3>
     <p class="navbar-text">Signed in as {{user}}</p>
   </div>
-  <div class="signin">
-    <form action="/logout" method="post">
-      <button class="btn btn-default" type="submit" value="Log In">Sign Out</button>
+  <div class="login">
+    <form>
+      <button class="btn btn-default" data-ng-click="logout()">Sign Out</button>
     <form>
   </div>
 </div>
 
 <div class="container col-md-12">
   <div class="row addtask">
-    <form>
-        <input class="addtaskinput" ng-model="form.task" name="task" placeholder="Task" required />
-      <button ng-click="addToDo()" class="addtaskbutton btn btn-default" type="submit">Add to List!</button>
+    <form name="task_form">
+      <input data-ng-model="form.task" type="text" name="task" placeholder="Type Task Here!" class="addtaskinput"/>
+      <button class="addtaskbutton btn btn-default" data-ng-click="addToDo()">Add to List!</button>
     </form>
   </div>
 
