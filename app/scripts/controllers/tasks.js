@@ -130,6 +130,8 @@ angular
         output = 2;
       } else if ((seconds - date) < (7*86400000)) {
         output = 1;
+      } else if ((seconds - date) < (8*86400000)) {
+        output = 0;
       }
 
       return output;
