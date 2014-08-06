@@ -173,6 +173,24 @@ addUser = function (req, res) {
 //ToDo Functions
 
 Task.find({}, function (err, todos){
+  var seconds = Date.now();
+  var week = 604800000; //604800000 = 1 week
+
+  console.log(todos);
+
+  for (i=0; i < todos.length; i++) {
+    var date = new Date(todos[i].date);
+    var datems = date.getTime();
+    if ((datems + week) < seconds) { 
+      todos[i].status = "archive"
+      todos[i].save(function(err) {
+        if (err) { return next(err); }
+      });
+    }
+  }
+}); 
+
+Task.find({}, function (err, todos){
   setInterval(function() {
   var seconds = Date.now();
   var week = 604800000; //604800000 = 1 week
