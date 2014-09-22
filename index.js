@@ -1,14 +1,12 @@
 /*** DEPENDENCIES ***/
 var express = require('express');
 var session = require('express-session');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var app = express();
 var passport = require('passport');
 var flash = require('connect-flash');
 var LocalStrategy = require('passport-local').Strategy;
-var RememberMeStrategy = require('passport-remember-me').Strategy;
 
 
 /*** DB ***/
@@ -68,14 +66,12 @@ app.get('/#/*', function(req, res){
 
 
 /***CONFIGURATIONS***/
-app.use(cookieParser());
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 app.use(session({ secret: "foo"}));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(passport.authenticate('remember-me'));
 
 
 /***FUNCTIONS***/
@@ -106,23 +102,6 @@ passport.use(new LocalStrategy(
     });
   }
 )); 
-
-passport.use(new RememberMeStrategy(
-  function(token, done) {
-    Token.consume(token, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) { return done(null, false); }
-      return done(null, user);
-    });
-  },
-  function(user, done) {
-    var token = utils.generateToken(64);
-    Token.save(token, { userId: user.id }, function(err) {
-      if (err) { return done(err); }
-      return done(null, token);
-    });
-  }
-));
 
 
 //Registration Form Functions
