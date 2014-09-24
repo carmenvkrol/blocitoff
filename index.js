@@ -7,10 +7,14 @@ var app = express();
 var passport = require('passport');
 var flash = require('connect-flash');
 var LocalStrategy = require('passport-local').Strategy;
+var MONGOHQ_URL="mongodb://carmen.krol@gmail.com:Ickoness618@kahana.mongohq.com:10025/app29663006";
 
 
 /*** DB ***/
-mongoose.connect('mongodb://localhost/blocitoff');
+
+mongoose.connect(process.env.MONGOHQ_URL);
+
+//mongoose.connect('mongodb://localhost/blocitoff');
 
 
 /*** MONGOOSE VARIABLES ***/
