@@ -70,9 +70,15 @@ app.get('/#/*', function(req, res){
 
 
 /***CONFIGURATIONS***/
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({
+  extended: true;
+}));
 app.use(bodyParser.json());
-app.use(session({ secret: "foo"}));
+app.use(session({ 
+  secret: "foo",
+  resave: true,
+  saveUninitialized: true
+}));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
