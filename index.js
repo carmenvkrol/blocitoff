@@ -75,9 +75,10 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 app.use(session({ 
-  secret: "foo",
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  extended: true,
+  secret: "foo",
 }));
 app.use(flash());
 app.use(passport.initialize());
