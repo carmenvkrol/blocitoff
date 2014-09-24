@@ -71,7 +71,7 @@ app.get('/#/*', function(req, res){
 
 /***CONFIGURATIONS***/
 app.use(bodyParser.urlencoded({
-  extended: true;
+  extended: true
 }));
 app.use(bodyParser.json());
 app.use(session({ 
