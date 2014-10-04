@@ -4,13 +4,18 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var app = express();
+
+//Passport
 var passport = require('passport');
 var flash = require('connect-flash');
 var LocalStrategy = require('passport-local').Strategy;
-var MONGOHQ_URL="mongodb://carmen.krol@gmail.com:Ickoness618@kahana.mongohq.com:10025/app29663006";
 
+//User Variable
+var users = require('./app/scripts/models/user');
+var User = require('mongoose').model('User');
 
 /*** DB ***/
+var MONGOHQ_URL="mongodb://carmen.krol@gmail.com:Ickoness618@kahana.mongohq.com:10025/app29663006";
 
 //mongoose.connect(process.env.MONGOHQ_URL);
 
@@ -18,16 +23,6 @@ mongoose.connect('mongodb://localhost/blocitoff');
 
 
 /*** MONGOOSE VARIABLES ***/
-
-//User Variable
-var userSchema = mongoose.Schema({
-      username: String,
-      email: String,
-      password: String,
-      todos: [{type: mongoose.Schema.Types.ObjectId, ref: 'Task'}]
-});
-
-var User = mongoose.model('User', userSchema);
 
 //ToDo Variable
 var taskSchema = new mongoose.Schema({ 
@@ -89,32 +84,6 @@ app.use(passport.session());
 
 //Passport for Sign In
 require('./app/scripts/passport')();
-
-/*passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function (err, user) {
-    return done(err, user);
-  })
-});
-
-
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.findOne({ username: username }, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false);
-      }
-      if ( password != password ) {
-        return done(null, false);
-      }
-      return done(null, user);
-    });
-  }
-));*/
 
 
 //Registration Form Functions
