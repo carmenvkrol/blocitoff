@@ -88,7 +88,9 @@ app.use(passport.session());
 /***FUNCTIONS***/
 
 //Passport for Sign In
-passport.serializeUser(function(user, done) {
+require('./app/scripts/passport')();
+
+/*passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
 
@@ -112,7 +114,7 @@ passport.use(new LocalStrategy(
       return done(null, user);
     });
   }
-)); 
+));*/
 
 
 //Registration Form Functions

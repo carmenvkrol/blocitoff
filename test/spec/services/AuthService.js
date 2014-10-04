@@ -11,7 +11,10 @@ describe('Service: AuthenticationService', function () {
     authenticationService = _AuthenticationService_;
   }));
 
-  it('should do something', function () {
+  it('publicMembers.login should login user', function () {
+    $httpBackend.when('POST', '/login')
+      .respond(200, 'Fred');
+    publicMembers.login();
 
   });
 
