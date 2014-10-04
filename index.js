@@ -14,6 +14,10 @@ var LocalStrategy = require('passport-local').Strategy;
 var users = require('./app/scripts/models/user');
 var User = require('mongoose').model('User');
 
+//ToDo Variable
+var tasks = require('./app/scripts/models/task');
+var Task = require('mongoose').model('Task');
+
 /*** DB ***/
 var MONGOHQ_URL="mongodb://carmen.krol@gmail.com:Ickoness618@kahana.mongohq.com:10025/app29663006";
 
@@ -25,14 +29,14 @@ mongoose.connect('mongodb://localhost/blocitoff');
 /*** MONGOOSE VARIABLES ***/
 
 //ToDo Variable
-var taskSchema = new mongoose.Schema({ 
+/*var taskSchema = new mongoose.Schema({ 
         userid: String,
         task: String,
         status: String,
         date: {type: Date, default: Date.now}
 });
 
-var Task = mongoose.model('Task', taskSchema);
+var Task = mongoose.model('Task', taskSchema);*/
 
 
 
