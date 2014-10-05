@@ -26,23 +26,20 @@ var MONGOHQ_URL="mongodb://carmen.krol@gmail.com:Ickoness618@kahana.mongohq.com:
 mongoose.connect('mongodb://localhost/blocitoff');
 
 
-/*** MONGOOSE VARIABLES ***/
-
-//ToDo Variable
-/*var taskSchema = new mongoose.Schema({ 
-        userid: String,
-        task: String,
-        status: String,
-        date: {type: Date, default: Date.now}
-});
-
-var Task = mongoose.model('Task', taskSchema);*/
-
-
-
-//Task.find({}).remove().exec();
-//User.find({}).remove().exec();
-
+/***CONFIGURATIONS***/
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
+app.use(session({ 
+  resave: true,
+  saveUninitialized: true,
+  extended: true,
+  secret: "foo",
+}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 /***PRODUCTION/DEV ROUTES***/
@@ -62,32 +59,14 @@ app.get('/#/*', function(req, res){
   res.sendfile('./app/index.html');
 });
 
-/*app.get('./tasks#/', function(req, res){
-  res.sendfile('./app/views/tasks.html');
-});*/
-
-
-
-/***CONFIGURATIONS***/
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-app.use(bodyParser.json());
-app.use(session({ 
-  resave: true,
-  saveUninitialized: true,
-  extended: true,
-  secret: "foo",
-}));
-app.use(flash());
-app.use(passport.initialize());
-app.use(passport.session());
-
 
 /***FUNCTIONS***/
 
-//Passport for Sign In
+//Passport
 require('./app/scripts/passport')();
+
+//ToDo routes
+require('./app/scripts/routes/task')();
 
 
 //Registration Form Functions
@@ -176,78 +155,6 @@ Task.find({}, function (err, todos){
 }); 
 
 
-toDoIndex = function (req, res) {
-  return Task.find(function (err, todos){
-    if (!err) {
-      res.json(todos); //jsonp
-    } else {
-      console.log(err);
-    }
-  });
-}
-
-toDoFindById = function (req, res) {
-  return Task.findById(req.params.id, function (err, todos){
-    if (!err) {
-      res.json(todos); //jsonp
-    } else {
-      console.log(err);
-    }
-  });
-}
-
-
-addToDo = function (req, res) {
-  var todo;
-  if (!req.user) {
-    console.log('user not logged in');
-  }
-
-  todo = new Task ({
-
-      userid:req.user.id,
-      task:req.body.task,
-      status: "current"
-
-  });
-
-  todo.save(function (err, todo) {
-
-    if (!err) {
-    
-      res.json(todo); //jsonp
-      
-      console.log('created');
-
-    } else {
-      console.log(err);
-    }
-
-  });
-}
-
-archiveToDo = function (req, res) {
-  return Task.findById(req.body._id, function(err, todo){
-      //todo.status = 'archive';
-      if(err){
-        return req.send(err);
-      }
-
-      todo.status = 'archive';
-
-      console.log(todo);
-
-      todo.save(function(err) {
-        if (err) { return next(err); }
-      });
-      if (!err) {
-        console.log('archived');
-        res.json(todo); //jsonp
-      } else {
-        console.log(err);
-      }
-  });
-}
 
 
 /*** ROUTES ***/
@@ -314,9 +221,9 @@ app.get('/users/:id', findById);
 app.post('/users', addUser);
 
 
-//ToDo routes
 
-app.get('/tasks', toDoIndex);
+
+/*app.get('/tasks', toDoIndex);
 app.get('/todos', function (req, res) {
   if (!req.user) {
     console.log('user is not logged in');
@@ -340,7 +247,7 @@ app.get('/todos', function (req, res) {
     
     }*/
 
-    if (!err) {
+    /*if (!err) {
       res.json(todos);
     } else {
       console.log(err);
@@ -353,7 +260,7 @@ app.get('/todos', function (req, res) {
 
 app.get('/todos/:id', toDoFindById);
 app.post('/todos', addToDo);
-app.put('/todos', archiveToDo);
+app.put('/todos', archiveToDo);*/
 
 
 
