@@ -66,53 +66,12 @@ app.get('/#/*', function(req, res){
 require('./app/scripts/passport')();
 
 //ToDo routes
-require('./app/scripts/routes/task')();
+require('./app/scripts/routes/task')(app);
+
+//User routes
+require('./app/scripts/routes/user')(app);
 
 
-//Registration Form Functions
-
-index = function (req, res) {
-  return User.find(function (err, users){
-    if (!err) {
-      res.json(users);//jsonp
-    } else {
-      console.log(err);
-    }
-  });
-}
-
-findById = function (req, res) {
-  return User.findById(req.params.id, function (err, user){
-    if (!err) {
-      res.json(user);//jsonp
-    } else {
-      console.log(err);
-    }
-  });
-}
-
-addUser = function (req, res) {
-  var user;
-
-  user = new User ({
-
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password
-
-  });
-
-  user.save(function (err) {
-
-    if (!err) {
-      console.log('created');
-    } else {
-      console.log(err);
-    }
-
-  });
-  return res.send(user);
-}
 
 //ToDo Functions
 
@@ -156,25 +115,15 @@ Task.find({}, function (err, todos){
 
 
 
-
 /*** ROUTES ***/
 
-//Sign In/Sign Out Routes
 
-/*app.post('/login',
-  passport.authenticate('local', { successRedirect: '/#/tasks',
-                                   failureRedirect: '/',
-                                 })
-);*/
-
-
-app.post('/login', function(req, res, next) {
+/*app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) { return next(err); }
     if (!user) { 
       res.status(401).redirect('/');
       console.log(401);
-      //return res.redirect('/'); 
     }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
@@ -183,85 +132,23 @@ app.post('/login', function(req, res, next) {
   })(req, res, next);
 });
 
-/*app.post('/login', 
-  passport.authenticate('local', { failureRedirect: '/', failureFlash: true }),
-  function(req, res, next) {
-    // issue a remember me cookie if the option was checked
-    if (!req.body.remember_me) { return next(); }
-
-    var token = utils.generateToken(64);
-    Token.save(token, { userId: req.user.id }, function(err) {
-      if (err) { return done(err); }
-      res.cookie('remember_me', token, { path: '/#/tasks', httpOnly: true, maxAge: 604800000 }); // 7 days
-      return next();
-    });
-  },
-  function(req, res) {
-    res.redirect('/#/tasks');
-  });*/
 
 app.post('/logout', function(req, res){
-  //res.clearCookie('remember_me');
   req.logout();
   res.json({
     success: true
   });
-  //res.redirect('/');
 });
 
-//Registration Form Routes
 app.get('/users', index);
 app.get('/userid', function(req, res) {
   if (!req.user) {
     console.log('user is not logged in');
   }
-  res.json(req.user.username);//jsonp
+  res.json(req.user.username);
 });
 app.get('/users/:id', findById);
-app.post('/users', addUser);
-
-
-
-
-/*app.get('/tasks', toDoIndex);
-app.get('/todos', function (req, res) {
-  if (!req.user) {
-    console.log('user is not logged in');
-    res.json([]);//jsonp
-  }
-  console.log("hello");
-
-  Task.find({'userid': req.user.id}, function (err, todos){
-
-    /*var response = [];
-
-    var i;
-
-    for(i in todos){
-      
-      if(todos[i].status !== 'archive'){
-
-        response.push(todo[i]);
-
-      }
-    
-    }*/
-
-    /*if (!err) {
-      res.json(todos);
-    } else {
-      console.log(err);
-    }
-
-  });
-
-});
-
-
-app.get('/todos/:id', toDoFindById);
-app.post('/todos', addToDo);
-app.put('/todos', archiveToDo);*/
-
+app.post('/users', addUser);*/
 
 
 /*** LOCAL SERVER ***/
