@@ -60,7 +60,7 @@ app.get('/#/*', function(req, res){
 });
 
 
-/***FUNCTIONS***/
+/***ROUTES & FUNCTIONS***/
 
 //Passport
 require('./app/scripts/passport')();
@@ -73,7 +73,7 @@ require('./app/scripts/routes/user')(app);
 
 
 
-//ToDo Functions
+/***Tasks Archive After 7 Days***/
 
 Task.find({}, function (err, todos){
   var seconds = Date.now();
@@ -111,44 +111,8 @@ Task.find({}, function (err, todos){
     }
   }
 }, 3600000);//3600000 = 1 hour
-}); 
-
-
-
-/*** ROUTES ***/
-
-
-/*app.post('/login', function(req, res, next) {
-  passport.authenticate('local', function(err, user, info) {
-    if (err) { return next(err); }
-    if (!user) { 
-      res.status(401).redirect('/');
-      console.log(401);
-    }
-    req.logIn(user, function(err) {
-      if (err) { return next(err); }
-      return res.redirect('/#/tasks');
-    });
-  })(req, res, next);
 });
 
-
-app.post('/logout', function(req, res){
-  req.logout();
-  res.json({
-    success: true
-  });
-});
-
-app.get('/users', index);
-app.get('/userid', function(req, res) {
-  if (!req.user) {
-    console.log('user is not logged in');
-  }
-  res.json(req.user.username);
-});
-app.get('/users/:id', findById);
-app.post('/users', addUser);*/
 
 
 /*** LOCAL SERVER ***/
