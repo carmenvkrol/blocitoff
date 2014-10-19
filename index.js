@@ -21,9 +21,9 @@ var Task = require('mongoose').model('Task');
 /*** DB ***/
 var MONGOHQ_URL="mongodb://carmen.krol@gmail.com:Ickoness618@kahana.mongohq.com:10025/app29663006";
 
-//mongoose.connect(process.env.MONGOHQ_URL);
+mongoose.connect(process.env.MONGOHQ_URL);
 
-mongoose.connect('mongodb://localhost/blocitoff');
+//mongoose.connect('mongodb://localhost/blocitoff');
 
 
 /***CONFIGURATIONS***/
