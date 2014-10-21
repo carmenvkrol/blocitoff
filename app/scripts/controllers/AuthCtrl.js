@@ -11,12 +11,15 @@ angular
     'AuthenticationService',
     function($scope, $http, $location, AuthenticationService) { 
 
-      AuthenticationService.logout();
+      this.AuthenticationService = AuthenticationService;
+      var self = this;
 
-      $scope.form = {};
+      self.AuthenticationService.logout();
+
+      //$scope.form = {};
 
       $scope.register = function(username, email, password){
-        AuthenticationService
+        self.AuthenticationService
           .register(username, email, password)
           .then(function(){
             $location.url('/');
@@ -25,7 +28,7 @@ angular
       };
 
       $scope.login = function(username, password){
-        AuthenticationService
+        self.AuthenticationService
           .login(username, password)
           .then(function(){
             $location.url('/tasks');

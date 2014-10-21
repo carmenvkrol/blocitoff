@@ -52,7 +52,7 @@ exports.addToDo = function (req, res) {
 
       userid:req.user.id,
       task:req.body.task,
-      status: "current"
+      status: 'current'
 
   });
 

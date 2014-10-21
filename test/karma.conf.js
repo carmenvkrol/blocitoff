@@ -32,7 +32,12 @@ module.exports = function(config) {
     ],
 
     // list of files / patterns to exclude
-    exclude: [],
+    exclude: [
+      'app/scripts/expresscontrollers/*.js',
+      'app/scripts/models/*.js',
+      'app/scripts/routes/*.js',
+      'app/scripts/passport.js'
+    ],
 
     // web server port
     port: 8080,
