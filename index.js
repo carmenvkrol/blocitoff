@@ -3,9 +3,6 @@ var express = require('express');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
-app.use(
-            })
-}))
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var app = express();
