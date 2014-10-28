@@ -23,7 +23,11 @@ var MONGOHQ_URL="mongodb://carmen.krol@gmail.com:Ickoness618@kahana.mongohq.com:
 
 //mongoose.connect(process.env.MONGOHQ_URL);
 
-mongoose.connect('mongodb://localhost/blocitoff');
+if (process.env.NODE_ENV === 'production') {
+    mongoose.connect(MONGOHQ_URL);
+} else {
+    mongoose.connect('mongodb://localhost/blocitoff');
+}
 
 
 /***CONFIGURATIONS***/
@@ -31,7 +35,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
-app.use(session({ 
+app.use(session({
   resave: true,
   saveUninitialized: true,
   extended: true,
@@ -84,14 +88,14 @@ Task.find({}, function (err, todos){
   for (i=0; i < todos.length; i++) {
     var date = new Date(todos[i].date);
     var datems = date.getTime();
-    if ((datems + week) < seconds) { 
+    if ((datems + week) < seconds) {
       todos[i].status = "archive"
       todos[i].save(function(err) {
         if (err) { return next(err); }
       });
     }
   }
-}); 
+});
 
 Task.find({}, function (err, todos){
   setInterval(function() {
@@ -103,7 +107,7 @@ Task.find({}, function (err, todos){
   for (i=0; i < todos.length; i++) {
     var date = new Date(todos[i].date);
     var datems = date.getTime();
-    if ((datems + week) < seconds) { 
+    if ((datems + week) < seconds) {
       todos[i].status = "archive"
       todos[i].save(function(err) {
         if (err) { return next(err); }
