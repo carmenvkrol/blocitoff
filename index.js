@@ -120,4 +120,9 @@ Task.find({}, function (err, todos){
 
 
 /*** LOCAL SERVER ***/
-app.listen(1337);
+
+if(process.env.NODE_ENV === 'production'){
+    app.listen(80);
+} else {
+    app.listen(1337);
+}
