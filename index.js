@@ -42,7 +42,7 @@ if (process.env.NODE_ENV === 'production') {
     app.use(session({
         secret: 'top-secret-yo',
         store: new MongoStore({
-            db : MONGOHQ_URL,
+            url : MONGOHQ_URL,
         })
     }));
 } else {
