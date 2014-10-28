@@ -23,13 +23,20 @@ var Task = require('mongoose').model('Task');
 /*** DB ***/
 var MONGOHQ_URL="mongodb://willy:wonka@kahana.mongohq.com:10025/app29663006";
 
-//mongoose.connect(process.env.MONGOHQ_URL);
+mongoose.connect(MONGOHQ_URL, function (e) {
+    var sessionStore = new MongoStore({ mongoose_connection: mongoose.connection });
 
-if (process.env.NODE_ENV === 'production') {
-    mongoose.connect(MONGOHQ_URL);
-} else {
-    mongoose.connect('mongodb://localhost/blocitoff');
-}
+
+
+    app.use(session({
+        secret: 'topsecretyo',
+        store: sessionStore,
+        resave: true,
+        saveUninitialized: true
+    }));
+
+
+});
 
 
 /***CONFIGURATIONS***/
@@ -38,21 +45,21 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(session({
-        secret: 'top-secret-yo',
-        store: new MongoStore({
-            url : MONGOHQ_URL,
-        })
-    }));
-} else {
-    app.use(session({
-        resave: true,
-        saveUninitialized: true,
-        extended: true,
-        secret: "foo",
-    }));
-}
+//if (process.env.NODE_ENV === 'production') {
+    //app.use(session({
+    //    secret: 'topsecretyo',
+    //    store: new MongoStore({
+    //        url : MONGOHQ_URL,
+    //    })
+    //}));
+//} else {
+//    app.use(session({
+//        resave: true,
+//        saveUninitialized: true,
+//        extended: true,
+//        secret: "foo",
+//    }));
+//}
 
 
 
