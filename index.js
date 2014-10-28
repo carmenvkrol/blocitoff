@@ -1,6 +1,11 @@
 /*** DEPENDENCIES ***/
 var express = require('express');
 var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+
+app.use(
+            })
+}))
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var app = express();
@@ -35,12 +40,25 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
-app.use(session({
-  resave: true,
-  saveUninitialized: true,
-  extended: true,
-  secret: "foo",
-}));
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(session({
+        secret: 'top-secret-yo',
+        store: new MongoStore({
+            db : MONGOHQ_URL,
+        })
+    }));
+} else {
+    app.use(session({
+        resave: true,
+        saveUninitialized: true,
+        extended: true,
+        secret: "foo",
+    }));
+}
+
+
+
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
