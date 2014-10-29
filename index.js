@@ -145,4 +145,7 @@ Task.find({}, function (err, todos){
 
 if(process.env.NODE_ENV !== 'production'){
     app.listen(1337);
+} else {
+  var port = process.env.PORT || CONFIG.port;
+  app.listen(port);
 }
