@@ -26,50 +26,18 @@ var MONGOLOCAL_URL="mongodb://localhost/blocitoff"
 
 mongoose.connect(process.env.NODE_ENV === 'production' ? MONGOHQ_URL : MONGOLOCAL_URL);
 
-    app.use(session({
-        resave: true,
-        saveUninitialized: true,
-        extended: true,
-        secret: "foo",
-    }));
-//mongoose.connect(MONGOLOCAL_URL, function (e) {
-//    var sessionStore = new MongoStore({ mongoose_connection: mongoose.connection });
-
-
-
-//    app.use(session({
-//        secret: 'topsecretyo',
-//        store: sessionStore,
-//        resave: true,
-//        saveUninitialized: true
-//    }));
-
-
-//});
-
+app.use(session({
+    resave: true,
+    saveUninitialized: true,
+    extended: true,
+    secret: "foo",
+}));
 
 /***CONFIGURATIONS***/
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
-
-//if (process.env.NODE_ENV === 'production') {
-    //app.use(session({
-    //    secret: 'topsecretyo',
-    //    store: new MongoStore({
-    //        url : MONGOHQ_URL,
-    //    })
-    //}));
-//} else {
-//    app.use(session({
-//        resave: true,
-//        saveUninitialized: true,
-//        extended: true,
-//        secret: "foo",
-//    }));
-//}
-
 
 
 app.use(flash());
