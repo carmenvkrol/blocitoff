@@ -21,10 +21,11 @@ var tasks = require('./app/scripts/models/task');
 var Task = require('mongoose').model('Task');
 
 /*** DB ***/
-var MONGOHQ_URL="mongodb://willy:wonka@kahana.mongohq.com:10025/app29663006";
+var MONGOHQ_URL="mongodb://"+process.env.MONGOHQ_UN+":"+process.env.MONGOHQ_PW+"@kahana.mongohq.com:10025/app29663006";
 var MONGOLOCAL_URL="mongodb://localhost/blocitoff"
 
-mongoose.connect(MONGOHQ_URL);
+mongoose.connect(process.env.NODE_ENV === 'production' ? MONGOHQ_URL : MONGOLOCAL_URL);
+
     app.use(session({
         resave: true,
         saveUninitialized: true,
