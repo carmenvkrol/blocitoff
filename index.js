@@ -22,21 +22,29 @@ var Task = require('mongoose').model('Task');
 
 /*** DB ***/
 var MONGOHQ_URL="mongodb://willy:wonka@kahana.mongohq.com:10025/app29663006";
+var MONGOLOCAL_URL="mongodb://localhost/blocitoff"
 
-mongoose.connect(MONGOHQ_URL, function (e) {
-    var sessionStore = new MongoStore({ mongoose_connection: mongoose.connection });
-
-
-
+mongoose.connect(MONGOHQ_URL);
     app.use(session({
-        secret: 'topsecretyo',
-        store: sessionStore,
         resave: true,
-        saveUninitialized: true
+        saveUninitialized: true,
+        extended: true,
+        secret: "foo",
     }));
+//mongoose.connect(MONGOLOCAL_URL, function (e) {
+//    var sessionStore = new MongoStore({ mongoose_connection: mongoose.connection });
 
 
-});
+
+//    app.use(session({
+//        secret: 'topsecretyo',
+//        store: sessionStore,
+//        resave: true,
+//        saveUninitialized: true
+//    }));
+
+
+//});
 
 
 /***CONFIGURATIONS***/
