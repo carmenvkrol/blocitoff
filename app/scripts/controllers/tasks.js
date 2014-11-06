@@ -8,8 +8,13 @@ angular
         '$location',
         '$timeout',
         'AuthenticationService',
+        'DatemsService',
 
-        function($http, $scope, $location, $timeout, AuthenticationService) {
+        function($http, $scope, $location, $timeout, AuthenticationService, DatemsService) {
+
+          this.AuthenticationService = AuthenticationService;
+          this.DatemsService = DatemsService;
+          var self = this;
 
           $http
             .get('/userid')
@@ -31,15 +36,10 @@ angular
             .success(function(data) {
               
               $timeout(function(){
-              
+
                 $scope.todos = data;
 
-                for (var i=0; i < $scope.todos.length; i++) {
-                  var newdate = new Date($scope.todos[i].date);
-                  var datems = newdate.getTime();
-                  console.log(datems);
-                  $scope.todos[i].date = datems;
-                }
+                self.DatemsService.convertms($scope.todos);
 
               });
             
@@ -55,24 +55,15 @@ angular
           $scope.form = {};
 
           $scope.addToDo = function () {
-            console.log('add todo function');
-            $http.post('/todos', $scope.form).
-              success(function(data){
- 
-                console.log(data);
+
+            $http.post('/todos', $scope.form)
+              .success(function(data){
 
                 $timeout(function(){
 
-                  $scope.todos.push(data);
+                  $scope.todos.push(data);         
 
-                  console.log($scope.data);
-
-                  for (var i=0; i < $scope.todos.length; i++) {
-                    var newdate = new Date($scope.todos[i].date);
-                    var datems = newdate.getTime();
-                    console.log(datems);
-                    $scope.todos[i].date = datems;
-                  }
+                  self.DatemsService.convertms($scope.todos);
 
                   $scope.form = {};
 
@@ -82,7 +73,6 @@ angular
           };
 
           $scope.archiveToDo = function(todo) {
-            console.log('archive todo', todo);
            
             $http.put('/todos', todo)
               .success(function(){

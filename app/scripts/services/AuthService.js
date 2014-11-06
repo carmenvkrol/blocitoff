@@ -4,10 +4,9 @@ angular
   .module('bloc1App')
   .factory('AuthenticationService', [
 
-    '$log',
     '$http',
 
-    function($log, $http){
+    function($http){
 
       var publicMembers = {},
           authorized = false;
@@ -21,8 +20,6 @@ angular
       publicMembers.login = function(username, password){
 
         var promise;
-
-        $log.debug('Login function');
 
         promise = $http.post('/login', {
           username: username,
@@ -40,8 +37,6 @@ angular
       publicMembers.register = function(username, email, password){
 
         var promise;
-
-        $log.debug('Register function');
 
         promise = $http.post('/users', {
           username: username,

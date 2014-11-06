@@ -140,7 +140,12 @@ module.exports = function (grunt) {
       all: {
         src: [
           'Gruntfile.js',
-          '<%= yeoman.app %>/scripts/{,*/}*.js'
+          '<%= yeoman.app %>/scripts/{,*/}*.js',
+          '!<%= yeoman.app %>/scripts/expresscontrollers/*.js', 
+          '!<%= yeoman.app %>/scripts/models/*.js', 
+          '!<%= yeoman.app %>/scripts/passport.js',
+          '!<%= yeoman.app %>/scripts/routes/*.js',
+          '!<%= yeoman.app %>/scripts/filters/daysleftfilter.js'
         ]
       },
       test: {
