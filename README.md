@@ -15,9 +15,9 @@ Run `npm install` and then `bower install`.
 
 Screenshots
 ------------
-![alt tag](https://raw.github.com/carmenvkrol/blocitoff/branch/path/to/blocitoff-screenshot-homepage.png)
+![alt tag](https://github.com/carmenvkrol/blocitoff/blocitoff-screenshot-homepage.png)
 
-![alt tag](https://raw.github.com/carmenvkrol/blocitoff/branch/path/to/blocitoff-screenshot-taskspage.png)
+![alt tag](https://github.com/carmenvkrol/blocitoff/blocitoff-screenshot-taskspage.png)
 
 
 Notes
