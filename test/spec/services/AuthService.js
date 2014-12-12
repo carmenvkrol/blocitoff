@@ -1,14 +1,17 @@
 'use strict';
 
-describe('Service: AuthenticationService', function () {
+describe('AuthenticationService', function () {
 
   // load the service's module
   beforeEach(module('bloc1App'));
 
   // instantiate service
-  var authenticationService;
-  beforeEach(inject(function (_AuthenticationService_) {
-    authenticationService = _AuthenticationService_;
+  var authenticationService
+      $httpBackend;
+
+  beforeEach(inject(function($injector, $httpBackend) {
+    authenticationService = $injector.get('AuthenticationService');
+    $httpBackend = $httpBackend;
   }));
 
   it('publicMembers.isAuthorized should return authorized', function () {
@@ -16,36 +19,40 @@ describe('Service: AuthenticationService', function () {
     expect(result).toBe(false);
   });
 
-  it('publicMembers.login should post username and password to /login', function () {
+  it('publicMembers.login should post username and password to /login and set authorized to true', function () {
+    var sampleUserPostDataResponse = {
+        _id: '525cf20451979dea2c000001',
+        username: 'foo',
+        email: 'foo@foo.com',
+        password: 'foo'
+      };
+
+    $httpBackend.expectPOST('/login', {
+      username: 'foo',
+      password: 'foo'
+    })
+    .response(sampleUserPostDataResponse);
+
+    authenticationService.login('foo', 'foo');
+    $httpBackend.flush();
+
     //$httpBackend.when('POST', '/login')
       //.respond(200, 'Fred');
     //publicMembers.login();
 
   });
 
-  it('publicMembers.login should set authorized to true after posting to /login', function () {
 
-  });
-
-  it('publicMembers.register should post username, email, and password to /users', function () {
+  it('publicMembers.register should post username, email, and password to /users and set authorized to true', function () {
 
 
   });
 
-  it('publicMembers.register should set authorized to true after posting to /users', function () {
+
+
+  it('publicMembers.logout should post to /logout and set authorized to false', function () {
 
   });
 
-  it('publicMembers.logout should post to /logout', function () {
-
-  });
-
-  it('publicMembers.logout should set authorized to false after post to /logout', function () {
-
-  });
-
-  it('publicMembers.login should set authorized to false even if doesnt post to /logout', function () {
-
-  });
 
 });
