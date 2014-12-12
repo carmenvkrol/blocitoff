@@ -17,6 +17,8 @@ Screenshots
 ------------
 ![](https://github.com/carmenvkrol/blocitoff/blob/master/blocitoff-screenshot-homepage.png)
 
+------------
+
 ![](https://github.com/carmenvkrol/blocitoff/blob/master/blocitoff-screenshot-taskspage.png)
 
 
