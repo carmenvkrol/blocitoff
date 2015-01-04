@@ -14,7 +14,7 @@ angular
       this.AuthenticationService = AuthenticationService;
       var self = this;
 
-      self.AuthenticationService.logout();
+      //self.AuthenticationService.logout();
 
       //$scope.form = {};
 

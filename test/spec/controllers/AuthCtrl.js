@@ -3,6 +3,7 @@
 describe('Controller: AuthCtrl', function () {
 
   var scope,
+      httpBackend,
       location,
       route,
       q,
@@ -12,8 +13,9 @@ describe('Controller: AuthCtrl', function () {
   // load the controller's module
   beforeEach(module('bloc1App'));
 
-  beforeEach(inject(function($controller, $rootScope, $location, $route, $q) {
+  beforeEach(inject(function($controller, $httpBackend, $rootScope, $location, $route, $q) {
     scope = $rootScope.$new();
+    httpBackend = $httpBackend;
     q = $q;
     rootScope = $rootScope;
     location = $location;
@@ -48,11 +50,14 @@ describe('Controller: AuthCtrl', function () {
 
   it('login should redirect user to tasks view', function(){
     //THIS TEST IS NOT FINISHED, HAVING PROBLEMS
+    httpBackend.expectGET('views/AuthView.html').respond(200);
     var deferred = q.defer();
     spyOn(AuthCtrl.AuthenticationService, 'login').andReturn(deferred.promise);
     spyOn(location, 'url');
     scope.login('foo', 'foo');
+    httpBackend.flush();
     deferred.resolve();
+    scope.$apply();
     expect(location.url).toHaveBeenCalledWith('/tasks');
   });
 
