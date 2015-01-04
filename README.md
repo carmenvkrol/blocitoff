@@ -28,7 +28,7 @@ Once that's complete, install the remaining dependencies, except Bower, by runni
 $ npm install
 ```
 
-Then install Bower by running:
+Then install the package manager [Bower](http://bower.io/) by running:
 ```
 $ bower install
 ```
@@ -56,7 +56,7 @@ In the last tab, run
 $ grunt serve
 ```
 
-The application runs on port 1337 (configured in [Gruntfile.js](https://github.com/carmenvkrol/blocitoff/blob/master/gruntfile.js)).  To change the port, modify the number highlighted below
+The application runs on port 1337 (configured in [Gruntfile.js](https://github.com/carmenvkrol/blocitoff/blob/master/Gruntfile.js)).  To change the port, modify the number highlighted below
 ```
 ...
  connect: {
@@ -86,7 +86,7 @@ blocitoff/
 
 ```
 
-Grunt looks for files using a defined pattern so that it knows what to compile and copy and where to put it. To edit the files that Grunt watches, look at the array of files in the watch task in [Gruntfile.js](https://github.com/carmenvkrol/blocitoff/blob/master/gruntfile.js). The default watched files are:
+Grunt looks for files using a defined pattern so that it knows what to compile and copy and where to put it. To edit the files that Grunt watches, look at the array of files in the watch task in [Gruntfile.js](https://github.com/carmenvkrol/blocitoff/blob/master/Gruntfile.js). The default watched files are:
 
 ```
 watch: {
@@ -150,7 +150,7 @@ A list of the plugins used by Grunt and what they're used for:
 
 **[Grunt-Contrib](https://github.com/gruntjs/grunt-contrib)** - collection of common grunt tasks
 
-**[Grunt-Contrib-Clean](https://github.com/gruntjs/grunt-contrib-clean)** - gcleans files and folders
+**[Grunt-Contrib-Clean](https://github.com/gruntjs/grunt-contrib-clean)** - cleans files and folders
 
 **[Grunt-Contrib-Concat](https://github.com/gruntjs/grunt-contrib-clean)** - concatenates files for production mode
 
@@ -196,7 +196,7 @@ A list of the plugins used by Grunt and what they're used for:
 
 
 
-Other Packages - FIX FOR THIS APP
+Other Packages
 ------------
 A list of other plugins used in this application and their purpose:
 
