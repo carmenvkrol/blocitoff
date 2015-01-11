@@ -14,7 +14,6 @@ angular
           var newdate = new Date(todos[i].date);
           var datems = newdate.getTime();
           todos[i].date = datems;
-          console.log(datems);
         }
 
       };

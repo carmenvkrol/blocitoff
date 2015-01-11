@@ -37,9 +37,7 @@ describe('Controller: AuthCtrl', function () {
   });
 
   it('register should redirect user to home page and post message in scope', function(){
-    //THIS TEST IS NOT FINISHED
-    //spyOn(AuthCtrl.AuthenticationService, 'register').andReturn(promise);
-    //scope.register('foo', 'foo@foo.com', 'foo');
+
   });
 
   it('login should use user info and login function from AuthenticationService', function(){
@@ -49,7 +47,6 @@ describe('Controller: AuthCtrl', function () {
   });
 
   it('login should redirect user to tasks view', function(){
-    //THIS TEST IS NOT FINISHED, HAVING PROBLEMS
     httpBackend.expectGET('views/AuthView.html').respond(200);
     var deferred = q.defer();
     spyOn(AuthCtrl.AuthenticationService, 'login').andReturn(deferred.promise);
