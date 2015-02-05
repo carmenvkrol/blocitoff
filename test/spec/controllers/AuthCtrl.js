@@ -37,7 +37,15 @@ describe('Controller: AuthCtrl', function () {
   });
 
   it('register should redirect user to home page and post message in scope', function(){
-
+    httpBackend.expectGET('views/AuthView.html').respond(200);
+    var deferred = q.defer();
+    spyOn(AuthCtrl.AuthenticationService, 'register').andReturn(deferred.promise);
+    spyOn(location, 'url');
+    scope.register('foo', 'foo@foo.com', 'foo');
+    httpBackend.flush();
+    deferred.resolve();
+    scope.$apply();
+    expect(location.url).toHaveBeenCalledWith('/');
   });
 
   it('login should use user info and login function from AuthenticationService', function(){
