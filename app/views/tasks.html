@@ -22,7 +22,7 @@
     <div class="list-group-item ngFade" ng-repeat="todo in todos | filter:{'status':'current'}">
         <div class="taskcontainer">
           <h4>{{ todo.task }}</h4>
-          <p class="text-muted">{{ todo.date | daysleftFilter }} day(s) left!</p>
+          <p class="text-muted">{{ todo.date }} day(s) left!</p>
         </div>
         <div class="taskcontainer">
           <span ng-click="archiveToDo(todo)" class="glyphicon glyphicon-ok"></span>

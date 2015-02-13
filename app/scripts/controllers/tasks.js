@@ -10,10 +10,10 @@ angular
         'AuthenticationService',
         'DatemsService',
 
-        function($http, $scope, $location, $timeout, AuthenticationService, DatemsService) {
+        function($http, $scope, $location, $timeout, AuthenticationService, DayLeftService) {
 
           this.AuthenticationService = AuthenticationService;
-          this.DatemsService = DatemsService;
+          this.DayLeftService = DayLeftService;
           var self = this;
 
           $http
@@ -39,7 +39,7 @@ angular
 
                 $scope.todos = data;
 
-                self.DatemsService.convertms($scope.todos);
+                self.DayLeftService.convertDay($scope.todos);
 
               });
             
@@ -63,7 +63,7 @@ angular
 
                   $scope.todos.push(data);         
 
-                  self.DatemsService.convertms($scope.todos);
+                  self.DatemsService.convertDay($scope.todos);
 
                   $scope.form = {};
 
