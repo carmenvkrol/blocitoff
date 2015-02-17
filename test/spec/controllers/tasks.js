@@ -19,7 +19,7 @@ describe('Controller: TasksCtrl', function () {
     });
   }));
 
-  it('should make get request to /userid', function () {
+  /*it('should make get request to /userid', function () {
     
   });
 
@@ -65,6 +65,6 @@ describe('Controller: TasksCtrl', function () {
 
   it('logout should redirect user to home page', function(){
 
-  });
+  });*/
 
 });

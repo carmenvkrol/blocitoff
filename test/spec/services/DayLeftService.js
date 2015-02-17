@@ -1,23 +1,32 @@
 'use strict';
 
-describe('Service: DatemsService', function () {
+describe('DayLeftService', function () {
 
   // load the service's module
   beforeEach(module('bloc1App'));
 
   // instantiate service
-  var datemsService;
-  beforeEach(inject(function (_DayLeftService_) {
-    dayLeftService = _DayLeftService_;
+  var dayLeftService;
+ 
+  beforeEach(inject(function($injector) {
+    dayLeftService = $injector.get('DayLeftService');
   }));
 
-  it('privateMembers.convertDay should convert date into days left', function () {
-    /*var todos = [
+  it('should have convertDay function', function() {
+    expect(angular.isFunction(dayLeftService.convertDay)).toBe(true);
+  });
+
+  it('convertDay should convert date into days left', function () {
+    var todos = [
       {
-        date: '2014-11-06T01:29:49.201Z'
+        date: '2015-02-13T05:57:23.287Z'
       }
     ];
-    dayLeftService.convertDay(todos);*/
+    spyOn(Date, 'now').andReturn(1424142607688);
+
+    var result = dayLeftService.convertDay(todos);
+    
+    expect(result).toEqual([{date:4}]);
   });
 
 });

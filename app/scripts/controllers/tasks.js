@@ -8,7 +8,7 @@ angular
         '$location',
         '$timeout',
         'AuthenticationService',
-        'DatemsService',
+        'DayLeftService',
 
         function($http, $scope, $location, $timeout, AuthenticationService, DayLeftService) {
 
@@ -63,7 +63,7 @@ angular
 
                   $scope.todos.push(data);         
 
-                  self.DatemsService.convertDay($scope.todos);
+                  self.DayLeftService.convertDay($scope.todos);
 
                   $scope.form = {};
 
