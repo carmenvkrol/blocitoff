@@ -21,7 +21,7 @@ var tasks = require('./app/scripts/models/task');
 var Task = require('mongoose').model('Task');
 
 /*** DB ***/
-var MONGOHQ_URL="mongodb://"+process.env.MONGOHQ_UN+":"+process.env.MONGOHQ_PW+"@kahana.mongohq.com:10025/app29663006";
+var MONGOHQ_URL="mongodb://"+process.env.MONGOHQ_UN+":"+process.env.MONGOHQ_PW+"@candidate.21.mongolayer.com:11484,candidate.33.mongolayer.com:11614/app29663006";
 var MONGOLOCAL_URL="mongodb://localhost/blocitoff"
 
 mongoose.connect(process.env.NODE_ENV === 'production' ? MONGOHQ_URL : MONGOLOCAL_URL);
