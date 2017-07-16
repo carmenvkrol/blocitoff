@@ -76,7 +76,7 @@
     "grunt-recess": "~0.7.0"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=4.8.4"
   },
   "scripts": {
     "start": "node index.js",
