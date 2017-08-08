@@ -3,10 +3,7 @@ blocitoff app
 
 Single-page app built with [AngularJS](https://angularjs.org/), [Express](http://expressjs.com/), [Mongoose](http://mongoosejs.com/), and [Node.js](http://nodejs.org/) using the [Yeoman Angular scaffolding](https://github.com/yeoman/generator-angular).
 
-Users can create an account in which they add tasks and delete them when completed.  The tasks will self-destruct after 7 days if not completed. 
-
-Here's the [demo] (https://blocitoff-cvk.herokuapp.com/#/).
-
+Users can create an account in which they add tasks and delete them when completed.  The tasks will self-destruct after 7 days if not completed.
 
 
 Configuration
@@ -134,7 +131,7 @@ The client-side files for user authentication, which are used in the [/] (https:
 
 Task Feature
 ------------
-The client-side functionality for tasks, which are used in the [/tasks](https://github.com/carmenvkrol/blocitoff/blob/master/app/views/tasks.html) view, can be found in the app directory . The server-side functionality is also in the app directory within the expresscontrollers folder. (See Directory Structure section above to locate these). 
+The client-side functionality for tasks, which are used in the [/tasks](https://github.com/carmenvkrol/blocitoff/blob/master/app/views/tasks.html) view, can be found in the app directory . The server-side functionality is also in the app directory within the expresscontrollers folder. (See Directory Structure section above to locate these).
 
 
 
@@ -176,7 +173,7 @@ A list of the plugins used by Grunt and what they're used for:
 
 **[Grunt-Google-CDN](https://github.com/btford/grunt-google-cdn)** - replaces refs on the Google CDN
 
-**[Grunt-Karma](https://github.com/karma-runner/grunt-karma)** - for running Karma, a test runner for JavaScript. 
+**[Grunt-Karma](https://github.com/karma-runner/grunt-karma)** - for running Karma, a test runner for JavaScript.
 
 **[Grunt-Newer](https://github.com/tschaub/grunt-newer)** - configures grunt tasks to run with newer files only
 
